@@ -1,7 +1,7 @@
 Summary:	Automated text file generator
 Name:		autogen
 Version:	5.18
-Release:	1%{?dist}
+Release:	5%{?dist}
 # Some files are licensed under GPLv2+.
 # We redistribute them under GPLv3+.
 License:	GPLv3+
@@ -46,6 +46,7 @@ License:	LGPLv3+
 Group:		Development/Libraries
 
 Requires:	automake
+Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-libopts%{?_isa} = %{version}-%{release}
 Requires:	pkgconfig
 
@@ -85,9 +86,6 @@ sed -i 's|\(It has been AutoGen-ed\).*.\(by AutoGen\)|\1 \2|' \
 	$RPM_BUILD_ROOT%{_mandir}/man3/*.3
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
-
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/autoopts.m4
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/libopts-*.tar.gz
 
 %post
 /sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir || :
@@ -143,6 +141,18 @@ fi
 %{_includedir}/autoopts/usage-txt.h
 
 %changelog
+* Fri Mar 14 2014 Miroslav Lichvar <mlichvar@redhat.com> - 5.18-5
+- Remove arch-specific dependency to avoid multilib conflict (#1076407)
+
+* Tue Feb 11 2014 Miroslav Lichvar <mlichvar@redhat.com> - 5.18-4
+- Package libopts tear-off tarball (#1055904)
+
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 5.18-3
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 5.18-2
+- Mass rebuild 2013-12-27
+
 * Mon Jul 29 2013 Miroslav Lichvar <mlichvar@redhat.com> - 5.18-1
 - Update to 5.18
 - Fix multilib conflicts (#831379)
